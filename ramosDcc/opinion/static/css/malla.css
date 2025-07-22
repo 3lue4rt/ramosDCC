@@ -1,0 +1,113 @@
+.malla {
+  height: 80vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 11 semestres */
+}
+
+.adm-btn {
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 8cm;
+  color: black; 
+}
+
+/* Añade estos estilos a tu CSS existente */
+.cuadro-ramo-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 183px;
+  min-height: 102px;
+  margin: 10px; /* Mueve el margen del cuadro-ramo al enlace */
+}
+
+.cuadro-ramo {
+  width: 180px;
+  min-height: 110px;
+  border: 2px solid #c9c1c2;
+  border-radius: 2px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+
+  box-sizing: border-box;
+  transition: all 0.3s ease; 
+}
+
+.cuadro-ramo:hover {
+    box-shadow: 0 12px 35px rgba(44, 90, 160, 0.15);
+    transform: translateY(-2px);
+}
+
+.fila-superior {
+  display: flex;
+  border-bottom: 2px solid #84888b;
+}
+.codigo, .creditos {
+  padding: 4px 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.codigo {
+  flex: 2;
+  border-right: 2px solid #84888b;
+}
+.creditos {
+  flex: 1;
+  text-align: center;
+}
+.nombre {
+  padding: 8px 4px;
+  border-bottom: 2px solid #84888b;
+  font-weight: bold;
+  text-align: center;
+
+  min-height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;  /* Ocupa el espacio necesario */
+  word-wrap: break-word;  /* Rompe palabras largas */
+  overflow-wrap: break-word;
+}
+.requisitos {
+  font-size: 11px;
+  padding: 4px;
+  text-align: center;
+}
+/* Colores de fondo */
+.cuadro-ramo.azul {
+  background-color: #d8eefb;
+}
+
+.semestre  {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+#semestre {
+  margin-top: 10px;
+    padding: 5px 10px;
+
+    width: 121px;
+    height: 0;
+    padding-bottom: 9%;
+
+    background-color: #0c7cbb ;
+    border: 2px solid #496a7b;
+    border-radius: 2px;
+
+    color: #f5fdf4;
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+}
+
+

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Ramos - ramosDCC{% endblock %}
+    
+
+{% block content %}
+
+<link rel="stylesheet" href="../../static/css/malla.css">
+<div class="malla">
+    {% for semestre in semestres %}
+    <div class="semestre" style="grid-column: forloop.counter">
+        <a id="semestre">{{ semestre }}</a>
+    
+        {% for ramo in ramos %}
+            {% if ramo.semestre == semestre %}
+            <a href="{% url 'ramo' code=ramo.code %}" class="cuadro-ramo-link">
+                <div class="cuadro-ramo azul">
+                    <div class="fila-superior">
+                        <div class="codigo">{{ ramo.code }}</div>
+                        <div class="creditos">{{ ramo.credits }}</div>
+                    </div>
+                    <div class="nombre">{{ ramo.name }}</div>
+                    <div class="requisitos">{{ ramo.requisitos }}</div>
+                </div>
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+<div class="adm-btn">
+{% if user.is_superuser %}
+    <a href="{% url 'addRamo' %}">Agregar Ramo</a>
+    <a href="{% url 'addRamo' %}">Eliminar Ramo</a>
+{% endif %}
+</div>
+
+{% endblock %}

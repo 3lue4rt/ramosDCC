@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Perfil de Usuario | ramosDCC{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 id="crear-cuenta-title">Perfil de Usuario</h1>
+    
+    <div class="main-container mt-4">
+        <div class="container">
+            
+            <div class="profile-info text-center mb-4">
+                <img src="https://via.placeholder.com/120" alt="Foto de perfil">
+                <p><strong>Fecha de registro:</strong> 21-05-2025</p>
+            </div>
+            
+            <form action="/actualizar-perfil" method="POST" enctype="multipart/form-data">
+                <!-- BACKEND: incluir CSRF token si aplica -->
+                <h2>Información personal</h2>
+                
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" value="Ejemplo">
+                
+                <label for="correo">Correo</label>
+                <input type="email" id="correo" name="correo" value="ejemplo@uc.cl">
+                
+                <label for="nick">Nick</label>
+                <input type="text" id="nick" name="nick" value="profe">
+
+                <h2>Validación académica</h2>
+                <label for="malla">Boletín de Inscripciones Académicas (PDF)</label>
+                <input type="file" id="malla" name="malla" accept=".pdf">
+                <small>Archivo actual: <a href="boletines/malla_actual.pdf" target="_blank">malla_actual.pdf</a></small>
+                
+                <h2>Sobre mí</h2>
+                
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion" rows="4">
+                    Estudiante del DCC interesado en sistemas operativos.
+                </textarea>
+                
+                <br>
+                <input type="submit" value="Actualizar Perfil" class="btn btn-custom mt-3">
+            </form>
+        </div>
+    </div>
+    
+    <div class="text-center mt-4">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Volver a la página principal</a>
+    </div>
+</div>
+
+{% endblock %}

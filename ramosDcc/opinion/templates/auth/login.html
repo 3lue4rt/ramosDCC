@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Iniciar Sesión - ramosDCC{% endblock %}
+    
+
+{% block content %}
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="form-box">
+            <div class="text-center mb-4">
+                <h1 class="fw-bold">Inicia Sesión</h1>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form action="" name="iniciar-sesion-form" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nombre de usuario</label>
+                    <input type="text" name="username" id="username" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
+                </div>
+
+                <button type="submit" name="login" class="w-100">Ingresar</button>
+            </form>
+
+            <button type="button" class="btn-outline w-100 mt-3" id="guest-btn">Ingresar como Invitado</button>
+            <div class="text-center mt-3">
+                <small>¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate</a></small>
+            </div>
+        </div>
+    </div>
+{% endblock %}

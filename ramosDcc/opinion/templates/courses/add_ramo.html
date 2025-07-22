@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Añadir Ramo - ramosDCC{% endblock %}
+
+{% block content %}
+<div class="container">
+  
+  <div class="form-box">
+    <h1>Añadir Ramo</h1>
+
+    <form method="post" action="{% url 'addRamo' %}">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="nombre">Nombre del Ramo:</label>
+        <input type="text" id="nombre" name="nombre" required>
+      </div>
+
+      <div class="form-group">
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo" required>
+      </div>
+
+      <div class="form-group">
+        <label for="semestres">Semestre</label>
+        <select name="semestres" id="semestres">
+          <option value="" disabled selected>-- Elige una opción --</option>
+          {% for semestre in semestres %}
+          <option value="{{ semestre }}">{{ semestre }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="creditos">Número de Créditos:</label>
+        <input type="number" id="creditos" name="creditos" min="0" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción del Ramo</label>
+        <input type="text" id="description" name="description" required>
+      </div>
+
+      <div class="form-group">
+        <label for="requisitos">Requisitos (Ctrl/Cmd + Click para seleccionar varios):</label>
+        <select id="requisitos" name="requisitos" multiple>
+          <option value="" disabled selected>-- Elige una opción --</option>
+          {% for ramo in ramos %}
+          <option value="{{ ramo.code }}">{{ ramo.code }}-{{ ramo.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-custom mt-3">Añadir Ramo</button>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

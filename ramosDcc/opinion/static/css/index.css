@@ -1,0 +1,167 @@
+
+:root {
+    --color-primario: #2c5aa0;
+    --color-secundario: #00ada0;
+    --color-acento: #ff2a7f;
+    --color-amarillo: #ffd91e;
+    --color-oscuro: #1a0856;
+    --color-gris: #606898;
+    --color-fondo: #f8f9fa;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-oscuro);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+
+.color-bar {
+    display: flex;
+    width: 100%;
+    height: 12px;
+}
+
+.color-bar div {
+    flex: 1;
+}
+
+.color1 { background-color: var(--color-primario); }
+.color2 { background-color: var(--color-secundario); }
+.color3 { background-color: var(--color-acento); }
+.color4 { background-color: var(--color-amarillo); }
+.color5 { background-color: var(--color-oscuro); }
+.color6 { background-color: var(--color-gris); }
+
+h1 {
+    font-weight: 800;
+    font-size: 70px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+p {
+    font-size: 18px;
+    color: var(--color-gris);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.login-box {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    width: 350px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+  
+.login-box button,
+.login-box .btn-outline {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 16px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+button {
+    background-color: var(--color-secundario);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--color-primario);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--color-primario);
+    border: 2px solid var(--color-primario);
+}
+
+.btn-outline:hover {
+    background-color: var(--color-primario);
+    color: white;
+}
+
+.text-center {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.text-center a {
+    color: var(--color-acento);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 10 px; /* espacio entre logo e texto */
+}
+
+.logo-img {
+    height: 7.5em; /* tamaño moderado */
+    width: auto;
+}
+
+.logo-text {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--color-oscuro);
+    font-family: 'Nunito', sans-serif;
+}
+
