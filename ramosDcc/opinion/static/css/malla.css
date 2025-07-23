@@ -1,7 +1,7 @@
 .malla {
   height: 80vh;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 11 semestres */
+  grid-template-columns: repeat(6, 1fr); /* 11 semestres */
 }
 
 .adm-btn {
@@ -96,7 +96,7 @@
 
     width: 121px;
     height: 0;
-    padding-bottom: 9%;
+    padding-bottom: 11%;
 
     background-color: #0c7cbb ;
     border: 2px solid #496a7b;

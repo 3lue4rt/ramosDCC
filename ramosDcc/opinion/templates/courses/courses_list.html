@@ -4,8 +4,15 @@
     
 
 {% block content %}
-
 <link rel="stylesheet" href="../../static/css/malla.css">
+
+<div class="adm-btn">
+{% if user.is_superuser %}
+    <a href="{% url 'addRamo' %}">Agregar Ramo</a>
+    <a href="{% url 'addRamo' %}">Eliminar Ramo</a>
+{% endif %}
+</div>
+
 <div class="malla">
     {% for semestre in semestres %}
     <div class="semestre" style="grid-column: forloop.counter">
@@ -27,12 +34,6 @@
         {% endfor %}
     </div>
     {% endfor %}
-</div>
-<div class="adm-btn">
-{% if user.is_superuser %}
-    <a href="{% url 'addRamo' %}">Agregar Ramo</a>
-    <a href="{% url 'addRamo' %}">Eliminar Ramo</a>
-{% endif %}
-</div>
+</div>  
 
 {% endblock %}

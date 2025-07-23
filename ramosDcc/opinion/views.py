@@ -7,7 +7,7 @@ from opinion.models import User, Opinion, Ramo
 from django.contrib import messages
 from .forms import CustomUserCreationForm
 
-semestres = ["V Semestre", "VI Semestre", "VII Semestre", "VIII Semestre"]
+semestres = ["V Semestre", "VI Semestre", "VII Semestre", "VIII Semestre", "IX Semestre", "X Semestre"]
 ramos = Ramo.objects.all()
 
 def index(request):
