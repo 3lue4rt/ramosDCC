@@ -5,6 +5,9 @@ from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from opinion.models import User, Opinion, Ramo
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
+from .forms import CustomUserCreationForm
+
 
 semestres = ["V Semestre", "VI Semestre", "VII Semestre", "VIII Semestre"]
 ramos = Ramo.objects.all()
@@ -22,23 +25,16 @@ def index(request):
 
 def register_user(request):
     # Method to register an user
-    if request.method == "GET":
-        return render(request, "auth/register_user.html")
-    
-    elif request.method == "POST":
-        if "register" in request.POST:
-            username = request.POST["username"]
-            password = request.POST["password"]
-            name = request.POST["nombres"]
-            last_name = request.POST["apellidos"]
-            email = request.POST["email"]
-
-            # Create new user
-            user = User.objects.create_user(username=username, password=password, name=name+last_name,
-                                            email=email)
-            usuario = authenticate(username=username,password=password)
-            login(request,usuario)
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
             return redirect("/")
+    else:
+        form = CustomUserCreationForm()
+    
+    return render(request, "auth/register_user.html", {'form': form})
+    
         
 def login_user(request):
     # Method to login
@@ -68,7 +64,7 @@ def courses(request):
     ramos = Ramo.objects.all()
     # Method to get the courses list page
     if request.method == "GET":
-        return render(request, "courses/courses_list.html", {"semestres": semestres, "ramos": ramos} )
+        return render(request, "courses/courses_list.html", {"semestres": semestres, "ramos": ramos})
     
 def ramo(request, code):
     ramo = Ramo.objects.get(code=code)
@@ -101,9 +97,14 @@ def addRamo(request):
         code = request.POST['codigo']
         semestre = request.POST['semestres']
         credits = request.POST['creditos']
-        requisitos = request.POST['requisitos']
         description = request.POST['description']
-        
+
+        # course could not have any requirements
+        try:
+            requisitos = request.POST['requisitos']
+        except:
+            requisitos = ""
+            
         new_ramo = Ramo(name=name, code=code, credits=credits, semestre=semestre, requisitos=requisitos, descripción=description)
         new_ramo.save()
 
@@ -121,3 +122,23 @@ def like_opinion(request):
         opinion.save()
         return JsonResponse({'likes': opinion.likes})
     return JsonResponse({'error': 'Método no permitido'}, status=400)
+
+
+def is_superuser(user):
+    return user.is_superuser
+
+@user_passes_test(is_superuser)
+def opinion_requests(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        action = request.POST.get('action')
+        
+        opinion = Opinion.objects.get(id=id)
+        
+        if action == "approve":
+            opinion.approve()
+        elif action == "disapprove":
+            opinion.disapprove()
+    
+    requests = Opinion.objects.filter(approved=False)
+    return render(request, 'courses/opinion_requests.html', {"requests": requests})

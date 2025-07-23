@@ -10,5 +10,6 @@ urlpatterns = [
     path('ramos/<str:code>', views.ramo, name='ramo'),
     path('agregar-ramo', views.addRamo, name='addRamo'),
     path('profile',views.profile, name='profile'),
-    path('like_opinion/', views.like_opinion, name='like_opinion')
-] 
+    path('like_opinion/', views.like_opinion, name='like_opinion'),
+    path('opinion-requests', views.opinion_requests, name='opinion-requests')
+]
