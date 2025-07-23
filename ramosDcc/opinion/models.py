@@ -32,13 +32,22 @@ class Opinion(models.Model):
   #user = User
   opinion_text = models.CharField(max_length=50) 
   #likes = models.IntegerField(default=0) 
+  
+  approved = models.BooleanField(default=False)
+  
+  def approve(self):
+    self.approved = True
+    self.save()
+    
+  def disapprove(self):
+    self.delete()
 
 
 class Ramo(models.Model):
   name = models.CharField(max_length=50) 
   code = models.CharField(max_length=8)
   descripción = models.CharField(max_length=500) 
-  requisitos = models.CharField(max_length=50) 
+  requisitos = models.CharField(max_length=50, default="") 
   semestre = models.CharField(max_length=50) 
   credits = models.IntegerField()
 
@@ -50,7 +59,8 @@ class Ramo(models.Model):
     rate = 0
     opinions = self.opinions
     for opinion in opinions:
-      rate += opinion.rate_dificulty
+      if opinion.approved:
+        rate += opinion.rate_dificulty
     if rate == 0:
       return 0
     
@@ -60,7 +70,8 @@ class Ramo(models.Model):
     rate = 0
     opinions = self.opinions
     for opinion in opinions:
-      rate += opinion.rate_time
+      if opinion.approved:
+        rate += opinion.rate_time
     if rate == 0:
       return 0
     
