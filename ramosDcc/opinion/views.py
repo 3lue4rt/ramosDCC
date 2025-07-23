@@ -23,28 +23,6 @@ def index(request):
 
 def register_user(request):
     # Method to register an user
-    '''
-    if request.method == "GET":
-        return render(request, "auth/register_user.html")
-    
-    elif request.method == "POST":
-        if "register" in request.POST:
-            username = request.POST["username"]
-            password = request.POST["password"]
-            name = request.POST["nombres"]
-            last_name = request.POST["apellidos"]
-            email = request.POST["email"]
-
-            # Create new user
-            user = User.objects.create_user(username=username,
-                                            password=password, 
-                                            name=name,
-                                            last_name=last_name,
-                                            email=email)
-            usuario = authenticate(username=username,password=password)
-            login(request,usuario)
-            return redirect("/")
-    '''
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
