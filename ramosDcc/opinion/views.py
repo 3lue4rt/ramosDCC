@@ -101,9 +101,14 @@ def addRamo(request):
         code = request.POST['codigo']
         semestre = request.POST['semestres']
         credits = request.POST['creditos']
-        requisitos = request.POST['requisitos']
         description = request.POST['description']
-        
+
+        # course could not have any requirements
+        try:
+            requisitos = request.POST['requisitos']
+        except:
+            requisitos = ""
+            
         new_ramo = Ramo(name=name, code=code, credits=credits, semestre=semestre, requisitos=requisitos, descripción=description)
         new_ramo.save()
 
