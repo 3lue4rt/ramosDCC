@@ -27,7 +27,9 @@ class Opinion(models.Model):
   #user = User
   opinion_text = models.CharField(max_length=50) 
   #likes = models.IntegerField(default=0) 
-
+  
+  date = models.DateField(auto_now=True)
+  
 
 class Ramo(models.Model):
   name = models.CharField(max_length=50) 
