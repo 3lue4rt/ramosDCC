@@ -263,3 +263,8 @@ select {
 .stars-group div {
 margin-bottom: 2px;
 }
+
+.opinion-date {
+    font-size: 0.875rem;
+    color: var(--color-gris);
+}

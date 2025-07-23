@@ -33,6 +33,8 @@ class Opinion(models.Model):
   opinion_text = models.CharField(max_length=50) 
   #likes = models.IntegerField(default=0) 
   
+
+  date = models.DateField(auto_now=True)
   approved = models.BooleanField(default=False)
   
   def approve(self):
@@ -41,7 +43,6 @@ class Opinion(models.Model):
     
   def disapprove(self):
     self.delete()
-
 
 class Ramo(models.Model):
   name = models.CharField(max_length=50) 
