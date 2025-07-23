@@ -34,7 +34,10 @@ def register_user(request):
             email = request.POST["email"]
 
             # Create new user
-            user = User.objects.create_user(username=username, password=password, name=name+last_name,
+            user = User.objects.create_user(username=username,
+                                            password=password, 
+                                            name=name,
+                                            last_name=last_name,
                                             email=email)
             usuario = authenticate(username=username,password=password)
             login(request,usuario)
