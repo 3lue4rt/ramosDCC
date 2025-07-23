@@ -51,6 +51,7 @@ class Ramo(models.Model):
   requisitos = models.CharField(max_length=50, default="") 
   semestre = models.CharField(max_length=50) 
   credits = models.IntegerField()
+  program_id = models.IntegerField()
 
   @property
   def opinions(self):
