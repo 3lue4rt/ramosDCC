@@ -8,6 +8,11 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class User(AbstractUser):
   name = models.CharField(max_length=50)
+  last_name = models.CharField(max_length=100)
+  email = models.EmailField(unique=True)
+
+  def __str__(self):
+        return self.username
 
 class Opinion(models.Model):
   ramo_code = models.CharField(max_length=50) 
