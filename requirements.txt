@@ -2,3 +2,5 @@ asgiref==3.3.2
 Django==3.2.25
 pytz==2020.1
 sqlparse==0.4.4
+legacy-cgi==2.6.3
+numpy==2.3
