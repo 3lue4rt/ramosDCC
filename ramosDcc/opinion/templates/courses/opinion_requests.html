@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Solicitudes de opiniones - ramosDCC{% endblock %}
+
+{% block content %}
+
+<div class="comment-list">
+    
+    {% for opinion in requests %}
+    
+    <div class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center">
+        <div>
+            <h4>Lucho</h4>
+            <p>( {{ opinion.ramo_code }} )</p>
+            <p>{{ opinion.opinion_text }}</p>
+            <small>
+                <strong>Dificultad:</strong> {{ opinion.rate_dificulty }}/5 |
+                <strong>Tiempo:</strong> {{ opinion.rate_time }}/5
+            </small>
+        </div>
+        
+        <div>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ opinion.id }}">
+                <button class="btn-custom" name="action" value="approve">
+                    aceptar&nbsp
+                </button>
+            </form>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ opinion.id }}">
+                <button class="btn-custom" name="action" value="disapprove">
+                    rechazar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+
+{% endblock %}

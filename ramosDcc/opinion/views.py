@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from opinion.models import User, Opinion, Ramo
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
 
 semestres = ["V Semestre", "VI Semestre", "VII Semestre", "VIII Semestre"]
 ramos = Ramo.objects.all()
@@ -68,7 +69,7 @@ def courses(request):
     ramos = Ramo.objects.all()
     # Method to get the courses list page
     if request.method == "GET":
-        return render(request, "courses/courses_list.html", {"semestres": semestres, "ramos": ramos} )
+        return render(request, "courses/courses_list.html", {"semestres": semestres, "ramos": ramos})
     
 def ramo(request, code):
     ramo = Ramo.objects.get(code=code)
@@ -121,3 +122,23 @@ def like_opinion(request):
         opinion.save()
         return JsonResponse({'likes': opinion.likes})
     return JsonResponse({'error': 'Método no permitido'}, status=400)
+
+
+def is_superuser(user):
+    return user.is_superuser
+
+@user_passes_test(is_superuser)
+def opinion_requests(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        action = request.POST.get('action')
+        
+        opinion = Opinion.objects.get(id=id)
+        
+        if action == "approve":
+            opinion.approve()
+        elif action == "disapprove":
+            opinion.disapprove()
+    
+    requests = Opinion.objects.filter(approved=False)
+    return render(request, 'courses/opinion_requests.html', {"requests": requests})

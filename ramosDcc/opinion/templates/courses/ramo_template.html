@@ -97,6 +97,8 @@
             <div class="comment-list">
                 <h2 class="mb-4">Opiniones del ramo</h2>
                 {% for opinion in ramo.opinions %}
+
+                {% if opinion.approved %}
                 <div class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center">
                     <div>
                         <h4>Lucho</h4>
@@ -112,6 +114,8 @@
                     ❤️ <span id="likes-count-{{ opinion.id }}">{{ opinion.likes }}</span>
                     </button>
                 </div>
+                {% endif %}
+                
                 {% endfor %}
             </div>
             
