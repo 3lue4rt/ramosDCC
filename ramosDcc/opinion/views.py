@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from opinion.models import User, Opinion, Ramo
 from django.contrib import messages
+from .forms import CustomUserCreationForm
 
 semestres = ["V Semestre", "VI Semestre", "VII Semestre", "VIII Semestre"]
 ramos = Ramo.objects.all()
@@ -22,23 +23,16 @@ def index(request):
 
 def register_user(request):
     # Method to register an user
-    if request.method == "GET":
-        return render(request, "auth/register_user.html")
-    
-    elif request.method == "POST":
-        if "register" in request.POST:
-            username = request.POST["username"]
-            password = request.POST["password"]
-            name = request.POST["nombres"]
-            last_name = request.POST["apellidos"]
-            email = request.POST["email"]
-
-            # Create new user
-            user = User.objects.create_user(username=username, password=password, name=name+last_name,
-                                            email=email)
-            usuario = authenticate(username=username,password=password)
-            login(request,usuario)
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
             return redirect("/")
+    else:
+        form = CustomUserCreationForm()
+    
+    return render(request, "auth/register_user.html", {'form': form})
+    
         
 def login_user(request):
     # Method to login
