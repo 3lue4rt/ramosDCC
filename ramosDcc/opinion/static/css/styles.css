@@ -186,7 +186,6 @@ select {
     min-width: 100%;
     display: flex;
     flex-direction: column;
-    margin: auto;
 }
 
 #ramo-info {
