@@ -10,6 +10,7 @@ class User(AbstractUser):
   name = models.CharField(max_length=50)
   last_name = models.CharField(max_length=50)
   email = models.EmailField(unique=True)
+  description = models.CharField(max_length=500, default="")
 
   def __str__(self):
         return self.username
