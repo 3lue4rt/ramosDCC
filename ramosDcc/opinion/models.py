@@ -47,11 +47,14 @@ class Opinion(models.Model):
 class Ramo(models.Model):
   name = models.CharField(max_length=50) 
   code = models.CharField(max_length=8)
-  descripción = models.CharField(max_length=500) 
+  descripción = models.CharField(max_length=1500) 
   requisitos = models.CharField(max_length=50, default="") 
   semestre = models.CharField(max_length=50) 
   credits = models.IntegerField()
-  program_id = models.IntegerField()
+  program_id = models.IntegerField(default=0)
+
+  def __str__(self):
+    return self.name
 
   @property
   def opinions(self):
