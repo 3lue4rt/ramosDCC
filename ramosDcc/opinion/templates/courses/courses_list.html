@@ -7,6 +7,10 @@
 <link rel="stylesheet" href="../../static/css/malla.css">
 
 <div class="adm-btn">
+{% if user.is_superuser %}
+    <a href="{% url 'addRamo' %}">Agregar Ramo</a>
+    <a href="{% url 'opinion-requests' %}">Solicitudes</a>
+{% endif %}
 </div>
 
 <div class="malla">
@@ -31,11 +35,6 @@
     </div>
     {% endfor %}
 </div>
-<div class="adm-btn">
-{% if user.is_superuser %}
-    <a href="{% url 'addRamo' %}">Agregar Ramo</a>
-    <a href="{% url 'opinion-requests' %}">Solicitudes</a>
-{% endif %}
-</div>
+
 
 {% endblock %}
