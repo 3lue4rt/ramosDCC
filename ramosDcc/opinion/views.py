@@ -70,24 +70,29 @@ def courses(request):
 def ramo(request, code):
     ramo = Ramo.objects.get(code=code)
     rates = ["Dificultad de evaluaciones", "Tiempo necesario"]
-
+    
+    user_opinion     = Opinion.objects.filter(user=request.user.pk, ramo_code=code)
+    opinion_given    = user_opinion.exists()
+    opinion_approved = opinion_given and user_opinion[0].approved
+    
     if request.method == "POST":
         opinion_text = request.POST['opinion_text']
         rate_dificulty = request.POST['rate_dificulty']
         rate_time = request.POST['rate_time']
-
-        opinion = Opinion(
-            ramo_code=code,
-            opinion_text=opinion_text,
-            rate_dificulty=rate_dificulty,
-            rate_time=rate_time,
-            user=request.user
-        )
-        opinion.save()
+        
+        if not opinion_given:
+            opinion = Opinion(
+                ramo_code=code,
+                opinion_text=opinion_text,
+                rate_dificulty=rate_dificulty,
+                rate_time=rate_time,
+                user=request.user
+            )
+            opinion.save()
 
         return redirect('ramo', code=code)
 
-    return render(request, "courses/ramo_template.html", {"ramo": ramo, "rates": rates})
+    return render(request, "courses/ramo_template.html", {"ramo": ramo, "rates": rates, "given": opinion_given, "approved": opinion_approved})
 
 def addRamo(request):
     ramos = Ramo.objects.all()
