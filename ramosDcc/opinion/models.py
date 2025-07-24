@@ -41,6 +41,9 @@ class Opinion(models.Model):
 
   date = models.DateField(auto_now=True)
   approved = models.BooleanField(default=False)
+
+  def __str__(self):
+    return f"Opinion de {self.user} sobre {self.ramo_code} el {self.date}, aprobada: {self.approved}"
   
   def approve(self):
     self.approved = True
