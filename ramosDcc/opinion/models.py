@@ -76,7 +76,7 @@ class Ramo(models.Model):
   @property
   def opinions(self):
     # opinion are displayed showind most liked first
-    return Opinion.objects.annotate(num_likes=models.Count('likes')).order_by('-num_likes')
+    return Opinion.objects.filter(ramo_code=self.code).annotate(num_likes=models.Count('likes')).order_by('-num_likes')
   
   def rate_dificulty(self):
     rate = 0
