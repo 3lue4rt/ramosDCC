@@ -1,7 +1,9 @@
 .malla {
-  height: 80vh;
+  height: 70vh;
   display: grid;
   grid-template-columns: repeat(7, 1fr); /* 11 semestres */
+  overflow-x: auto;
+  padding-bottom: 2rem;
 }
 
 .adm-btn {
