@@ -29,13 +29,21 @@ class Opinion(models.Model):
         ]
     )
 
-  #user = User
-  opinion_text = models.CharField(max_length=50) 
+  user = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE,
+        related_name='opinions',  # user.opinions.all()
+        verbose_name="Autor"
+    )
+  opinion_text = models.CharField(max_length=400) 
   #likes = models.IntegerField(default=0) 
   
 
   date = models.DateField(auto_now=True)
   approved = models.BooleanField(default=False)
+
+  def __str__(self):
+    return f"Opinion de {self.user} sobre {self.ramo_code} el {self.date}, aprobada: {self.approved}"
   
   def approve(self):
     self.approved = True
@@ -47,10 +55,14 @@ class Opinion(models.Model):
 class Ramo(models.Model):
   name = models.CharField(max_length=50) 
   code = models.CharField(max_length=8)
-  descripción = models.CharField(max_length=500) 
+  descripción = models.CharField(max_length=1500) 
   requisitos = models.CharField(max_length=50, default="") 
   semestre = models.CharField(max_length=50) 
   credits = models.IntegerField()
+  program_id = models.IntegerField(default=0)
+
+  def __str__(self):
+    return self.name
 
   @property
   def opinions(self):

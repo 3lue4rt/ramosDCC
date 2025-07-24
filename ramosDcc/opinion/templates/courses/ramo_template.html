@@ -5,21 +5,17 @@
 {% block content %}
 
 <div id="ramo-box" class="container my-5">
-    <div class="row">
-
-        <!-- COLUMNA IZQUIERDA -->
-        <div id="ramo-info" class="col-md-6 mb-5">
-            <a href="https://ucampus.uchile.cl/m/fcfm_catalogo/programa?bajar=1&id={{ ramo.id }}">
-                <img id="programa" src="https://ucampus.uchile.cl/b/programas_cursos/afiche?id={{ ramo.id }}&r=7b6b&r=f26d19269d474a724347c8c6f26ab096">
-            </a>
+        <div id="ramo-info" >
             <h1>{{ ramo.code }} - {{ ramo.name }}</h1>
+            <a href="https://ucampus.uchile.cl/m/fcfm_catalogo/programa?bajar=1&id={{ ramo.program_id }}">
+                Programa del Curso
+            </a>
             <p>{{ ramo.descripción}}</p>
             <p class="rates">La dificultad del ramo de acuerdo a sus créditos no esta nivelada: {{ ramo.rate_dificulty }}/5</p>
             <p class="rates">El tiempo dedicado es más del esperado para sus créditos: {{ ramo.rate_time }}/5</p>
         </div>
 
-        <!-- COLUMNA DERECHA -->
-        <div class="col-md-6">
+        <div >
             {% if user.is_authenticated %}
             <div class="comment-box mb-4">
                 <h2 class="mb-4">Deja tu opinión</h2>
@@ -101,7 +97,7 @@
                 {% if opinion.approved %}
                 <div class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center">
                     <div>
-                        <h4>Lucho </h4>
+                        <h4>{{ opinion.user }} </h4>
                         <p>{{ opinion.opinion_text }}</p>
                         <small>
                             <strong>Dificultad:</strong> {{ opinion.rate_dificulty }}/5 |
@@ -125,7 +121,7 @@
             
 
         </div>
-    </div>
+    
 </div>
 
 {% endblock %}

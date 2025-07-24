@@ -7,7 +7,7 @@ from opinion.models import User, Opinion, Ramo
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from .forms import CustomUserCreationForm
-
+from django.contrib.auth.decorators import login_required
 
 semestres = ["V Semestre", "VI Semestre", "VII Semestre", "VIII Semestre"]
 ramos = Ramo.objects.all()
@@ -66,6 +66,7 @@ def courses(request):
     if request.method == "GET":
         return render(request, "courses/courses_list.html", {"semestres": semestres, "ramos": ramos})
     
+@login_required
 def ramo(request, code):
     ramo = Ramo.objects.get(code=code)
     rates = ["Dificultad de evaluaciones", "Tiempo necesario"]
@@ -79,7 +80,8 @@ def ramo(request, code):
             ramo_code=code,
             opinion_text=opinion_text,
             rate_dificulty=rate_dificulty,
-            rate_time=rate_time
+            rate_time=rate_time,
+            user=request.user
         )
         opinion.save()
 
