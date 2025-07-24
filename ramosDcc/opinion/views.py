@@ -67,7 +67,7 @@ def courses(request):
     if request.method == "GET":
         return render(request, "courses/courses_list.html", {"semestres": semestres, "ramos": ramos})
     
-@login_required
+
 def ramo(request, code):
     ramo = Ramo.objects.get(code=code)
     rates = ["Dificultad de evaluaciones", "Tiempo necesario"]
