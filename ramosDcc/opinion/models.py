@@ -68,6 +68,10 @@ class Ramo(models.Model):
 
   def __str__(self):
     return self.name
+  
+  @property
+  def pretty_requisitos(self):
+    return self.requisitos.strip('[]').replace("'", "")
 
   @property
   def opinions(self):
