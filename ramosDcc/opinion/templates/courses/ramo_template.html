@@ -5,119 +5,141 @@
 {% block content %}
 
 <div id="ramo-box" class="container my-5">
-    <div class="row">
-
-        <!-- COLUMNA IZQUIERDA -->
-        <div id="ramo-info" class="col-md-6 mb-5">
-            <a href="https://ucampus.uchile.cl/m/fcfm_catalogo/programa?bajar=1&id={{ ramo.id }}">
-                <img id="programa" src="https://ucampus.uchile.cl/b/programas_cursos/afiche?id={{ ramo.id }}&r=7b6b&r=f26d19269d474a724347c8c6f26ab096">
-            </a>
+        <div id="ramo-info" >
             <h1>{{ ramo.code }} - {{ ramo.name }}</h1>
+            <a href="https://ucampus.uchile.cl/m/fcfm_catalogo/programa?bajar=1&id={{ ramo.program_id }}">
+                Programa del Curso
+            </a>
             <p>{{ ramo.descripción}}</p>
             <p class="rates">La dificultad del ramo de acuerdo a sus créditos no esta nivelada: {{ ramo.rate_dificulty }}/5</p>
             <p class="rates">El tiempo dedicado es más del esperado para sus créditos: {{ ramo.rate_time }}/5</p>
         </div>
 
-        <!-- COLUMNA DERECHA -->
-        <div class="col-md-6">
+        <div >
             {% if user.is_authenticated %}
-            <div class="comment-box mb-4">
-                <h2 class="mb-4">Deja tu opinión</h2>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    
-                    <div class="mb-3">
-                        <label for="username">Nombre de usuario:</label>
-                        <a>{{user.username}}</a>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="opinion_text">Opinión</label>
-                        <input type="text" class="form-control" name="opinion_text" id="opinion_text" required>
-                    </div>
-                    
-                    
-                    <div class="mb-3">
-                        <label>Dificultad de evaluaciones</label>
-                        <div class="stars-group">
-                            <div>
-                                <input type="radio" id="dificultad1" name="rate_dificulty" value="1" required>
-                                <label for="dificultad1">⭐ Muy fácil</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="dificultad2" name="rate_dificulty" value="2">
-                                <label for="dificultad2">⭐⭐ Fácil</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="dificultad3" name="rate_dificulty" value="3">
-                                <label for="dificultad3">⭐⭐⭐ Moderado</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="dificultad4" name="rate_dificulty" value="4">
-                                <label for="dificultad4">⭐⭐⭐⭐ Algo difícil</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="dificultad5" name="rate_dificulty" value="5">
-                                <label for="dificultad5">⭐⭐⭐⭐⭐ Difícil</label>
+
+                {% if not given %} <!-- if the user has not given an opinion -->
+                <div class="comment-box mb-4">
+                    <h2 class="mb-4">Deja tu opinión</h2>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="username">Nombre de usuario:</label>
+                            <a>{{user.username}}</a>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="opinion_text">Opinión</label>
+                            <input type="text" class="form-control" name="opinion_text" id="opinion_text" required>
+                        </div>
+                        
+                        
+                        <div class="mb-3">
+                            <label>Dificultad de evaluaciones</label>
+                            <div class="stars-group">
+                                <div>
+                                    <input type="radio" id="dificultad1" name="rate_dificulty" value="1" required>
+                                    <label for="dificultad1">⭐ Muy fácil</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="dificultad2" name="rate_dificulty" value="2">
+                                    <label for="dificultad2">⭐⭐ Fácil</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="dificultad3" name="rate_dificulty" value="3">
+                                    <label for="dificultad3">⭐⭐⭐ Moderado</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="dificultad4" name="rate_dificulty" value="4">
+                                    <label for="dificultad4">⭐⭐⭐⭐ Algo difícil</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="dificultad5" name="rate_dificulty" value="5">
+                                    <label for="dificultad5">⭐⭐⭐⭐⭐ Difícil</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label>Tiempo necesario</label>
-                        <div class="stars-group">
-                            <div>
-                                <input type="radio" id="tiempo1" name="rate_time" value="1" required>
-                                <label for="tiempo1">⭐ Muy poco</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="tiempo2" name="rate_time" value="2">
-                                <label for="tiempo2">⭐⭐ Poco</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="tiempo3" name="rate_time" value="3">
-                                <label for="tiempo3">⭐⭐⭐ Moderado</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="tiempo4" name="rate_time" value="4">
-                                <label for="tiempo4">⭐⭐⭐⭐ Bastante</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="tiempo5" name="rate_time" value="5">
-                                <label for="tiempo5">⭐⭐⭐⭐⭐ Demasiado</label>
+                        
+                        <div class="mb-3">
+                            <label>Tiempo necesario</label>
+                            <div class="stars-group">
+                                <div>
+                                    <input type="radio" id="tiempo1" name="rate_time" value="1" required>
+                                    <label for="tiempo1">⭐ Muy poco</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="tiempo2" name="rate_time" value="2">
+                                    <label for="tiempo2">⭐⭐ Poco</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="tiempo3" name="rate_time" value="3">
+                                    <label for="tiempo3">⭐⭐⭐ Moderado</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="tiempo4" name="rate_time" value="4">
+                                    <label for="tiempo4">⭐⭐⭐⭐ Bastante</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="tiempo5" name="rate_time" value="5">
+                                    <label for="tiempo5">⭐⭐⭐⭐⭐ Demasiado</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <button id="opinion-submit-btn" type="submit" class="btn btn-custom mt-3">Enviar opinión</button>
-                </form>
-            </div>
+                        
+                        <button id="opinion-submit-btn" type="submit" class="btn btn-custom mt-3">Enviar opinión</button>
+                    </form>
+                </div>
+
+                {% else %} <!-- if the user has already given an opinion -->
+
+                    {% if approved %}    <!-- if the user's opinion has been approved -->
+
+                    <p>Ya has dado tu opinión sobre este curso. <a href="#{{ user.username }}">(Ver Opinión)</a> </p>
+
+                    {% else %}           <!-- if the user's opinion has not been approved yet -->
+
+                    <p>Tú opinión está a la espera de ser aprobada por los moderadores. En caso de ser rechazada, tendrás que volver a dar tu opinión</p>
+
+                    {% endif%}
+
+                {% endif %}
+
             {% endif %}
             
             <div class="comment-list">
                 <h2 class="mb-4">Opiniones del ramo</h2>
                 {% for opinion in ramo.opinions %}
-                <div class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center">
+
+                {% if opinion.approved %}
+                <div class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center" id="{{ opinion.user.username }}">
                     <div>
-                        <h4>Lucho</h4>
+                        <h4>{{ opinion.user }} </h4>
                         <p>{{ opinion.opinion_text }}</p>
                         <small>
                             <strong>Dificultad:</strong> {{ opinion.rate_dificulty }}/5 |
                             <strong>Tiempo:</strong> {{ opinion.rate_time }}/5
                         </small>
+                        <br>
+                        <small class="opinion-date">{{ opinion.date }}</small>
                     </div>
-                    <button class="btn btn-sm btn-outline-primary like-btn"
-                        data-opinion-id="{{ opinion.id }}"
-                        data-url="{% url 'like_opinion' %}">
-                    ❤️ <span id="likes-count-{{ opinion.id }}">{{ opinion.likes }}</span>
-                    </button>
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary like-btn"
+                            data-opinion-id="{{ opinion.id }}"
+                            data-likes="{{ opinion.like_count }}"
+                            data-action="{% url 'like_opinion' %}">
+                        ❤️ <span id="likes-count-{{ opinion.id }}" >{{ opinion.like_count }}</span>
+                        </button>
+                    </div>
                 </div>
+                {% endif %}
+                
                 {% endfor %}
             </div>
             
 
         </div>
-    </div>
+    
 </div>
 
 {% endblock %}

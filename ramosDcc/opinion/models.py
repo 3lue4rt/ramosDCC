@@ -29,28 +29,57 @@ class Opinion(models.Model):
         ]
     )
 
-  #user = User
-  opinion_text = models.CharField(max_length=50) 
-  #likes = models.IntegerField(default=0) 
+  user = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE,
+        related_name='opinions',  # user.opinions.all()
+        verbose_name="Autor"
+    )
+  
+  opinion_text = models.CharField(max_length=400) 
+  likes = models.ManyToManyField(User, related_name="liked_comments")
+  
+  @property
+  def like_count(self):
+    return self.likes.count() 
+  
 
+  date = models.DateField(auto_now=True)
+  approved = models.BooleanField(default=False)
+
+  def __str__(self):
+    return f"Opinion de {self.user} sobre {self.ramo_code} el {self.date}, aprobada: {self.approved}"
+  
+  def approve(self):
+    self.approved = True
+    self.save()
+    
+  def disapprove(self):
+    self.delete()
 
 class Ramo(models.Model):
   name = models.CharField(max_length=50) 
   code = models.CharField(max_length=8)
-  descripción = models.CharField(max_length=500) 
-  requisitos = models.CharField(max_length=50) 
+  descripción = models.CharField(max_length=1500) 
+  requisitos = models.CharField(max_length=50, default="") 
   semestre = models.CharField(max_length=50) 
   credits = models.IntegerField()
+  program_id = models.IntegerField(default=0)
+
+  def __str__(self):
+    return self.name
 
   @property
   def opinions(self):
-    return Opinion.objects.filter(ramo_code=self.code)
+    # opinion are displayed showind most liked first
+    return Opinion.objects.annotate(num_likes=models.Count('likes')).order_by('-num_likes')
   
   def rate_dificulty(self):
     rate = 0
     opinions = self.opinions
     for opinion in opinions:
-      rate += opinion.rate_dificulty
+      if opinion.approved:
+        rate += opinion.rate_dificulty
     if rate == 0:
       return 0
     
@@ -60,7 +89,8 @@ class Ramo(models.Model):
     rate = 0
     opinions = self.opinions
     for opinion in opinions:
-      rate += opinion.rate_time
+      if opinion.approved:
+        rate += opinion.rate_time
     if rate == 0:
       return 0
     
