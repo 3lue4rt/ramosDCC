@@ -95,6 +95,10 @@ def ramo(request, code):
 
     return render(request, "courses/ramo_template.html", {"ramo": ramo, "rates": rates, "given": opinion_given, "approved": opinion_approved})
 
+def course_list(request):
+    ramos = Ramo.objects.all().order_by('name')  # Orden alfabetico
+    return render(request, 'courses.html', {'ramos': ramos})
+
 def addRamo(request):
     ramos = Ramo.objects.all()
     if request.method == "GET":
