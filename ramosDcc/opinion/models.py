@@ -35,7 +35,7 @@ class Opinion(models.Model):
         related_name='opinions',  # user.opinions.all()
         verbose_name="Autor"
     )
-  opinion_text = models.CharField(max_length=50) 
+  opinion_text = models.CharField(max_length=400) 
   #likes = models.IntegerField(default=0) 
   
 
