@@ -123,8 +123,6 @@ def like_opinion(request):
         
         opinion = Opinion.objects.get(id=opinion_id)
         
-        print("t0 ", opinion.like_count, curr_likes)
-        
         if opinion.likes.filter(pk=request.user.pk).exists():
             opinion.likes.remove(request.user)
             curr_likes -= 1
@@ -132,8 +130,6 @@ def like_opinion(request):
         else:
             opinion.likes.add(request.user)
             curr_likes += 1
-        
-        print("tf ", opinion.like_count, curr_likes, request.user)
         
         return JsonResponse({'likes': curr_likes}, status=200)
     return JsonResponse({'error': 'Método no permitido'}, status=400)
