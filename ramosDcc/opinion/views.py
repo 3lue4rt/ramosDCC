@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import user_passes_test
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 
-semestres = ["V Semestre", "VI Semestre", "VII Semestre", "VIII Semestre", "IX Semestre", "X Semestre"]
+semestres = ["V Semestre", "VI Semestre", "VII Semestre", "VIII Semestre", "IX Semestre", "X Semestre", "XI Semestre"]
 ramos = Ramo.objects.all()
 
 def index(request):
