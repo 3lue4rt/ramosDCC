@@ -29,7 +29,12 @@ class Opinion(models.Model):
         ]
     )
 
-  #user = User
+  user = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE,
+        related_name='opinions',  # user.opinions.all()
+        verbose_name="Autor"
+    )
   opinion_text = models.CharField(max_length=50) 
   #likes = models.IntegerField(default=0) 
   
