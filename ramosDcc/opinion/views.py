@@ -109,7 +109,7 @@ def addRamo(request):
 
         # course could not have any requirements
         try:
-            requisitos = request.POST['requisitos']
+            requisitos = request.POST.getlist('requisitos')
         except:
             requisitos = ""
             
