@@ -10,6 +10,7 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 
 semestres = ["V Semestre", "VI Semestre", "VII Semestre", "VIII Semestre", "IX Semestre", "X Semestre", "XI Semestre"]
+semestres_electivo = semestres + ["Electivo"]
 ramos = Ramo.objects.all()
 
 def index(request):
@@ -97,7 +98,7 @@ def ramo(request, code):
 def addRamo(request):
     ramos = Ramo.objects.all()
     if request.method == "GET":
-        return render(request, "courses/add_ramo.html", {"semestres": semestres, "ramos": ramos})
+        return render(request, "courses/add_ramo.html", {"semestres": semestres_electivo, "ramos": ramos})
     
     elif request.method == "POST":
         name = request.POST['nombre']
