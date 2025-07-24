@@ -3,20 +3,22 @@ document.addEventListener('DOMContentLoaded', function () {
     buttons.forEach(button => {
         button.addEventListener('click', function () {
             const opinionId = this.getAttribute('data-opinion-id');
-            const url = this.getAttribute('data-url');  // << aquí toma la URL dinámica
+            const likes = this.getAttribute('data-likes')
+            const url = this.getAttribute('data-action');  // << aquí toma la URL dinámica
             const csrftoken = getCookie('csrftoken');
 
             fetch(url, {
                 method: 'POST',
-                headers: {
+                headers: { 
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'X-CSRFToken': csrftoken
                 },
-                body: 'opinion_id=' + opinionId
+                body: new URLSearchParams({ opinion_id: opinionId , curr_likes: likes})
             })
             .then(response => response.json())
             .then(data => {
                 document.getElementById('likes-count-' + opinionId).innerText = data.likes;
+                this.setAttribute('data-likes', data.likes)
             });
         });
     });

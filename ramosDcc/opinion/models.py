@@ -35,8 +35,13 @@ class Opinion(models.Model):
         related_name='opinions',  # user.opinions.all()
         verbose_name="Autor"
     )
+  
   opinion_text = models.CharField(max_length=400) 
-  #likes = models.IntegerField(default=0) 
+  likes = models.ManyToManyField(User, related_name="liked_comments")
+  
+  @property
+  def like_count(self):
+    return self.likes.count() 
   
 
   date = models.DateField(auto_now=True)
@@ -66,7 +71,8 @@ class Ramo(models.Model):
 
   @property
   def opinions(self):
-    return Opinion.objects.filter(ramo_code=self.code)
+    # opinion are displayed showind most liked first
+    return Opinion.objects.annotate(num_likes=models.Count('likes')).order_by('-num_likes')
   
   def rate_dificulty(self):
     rate = 0
