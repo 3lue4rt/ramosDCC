@@ -126,8 +126,9 @@
                     <div>
                         <button class="btn btn-sm btn-outline-primary like-btn"
                             data-opinion-id="{{ opinion.id }}"
-                            data-url="{% url 'like_opinion' %}">
-                        ❤️ <span id="likes-count-{{ opinion.id }}">{{ opinion.likes }}</span>
+                            data-likes="{{ opinion.like_count }}"
+                            data-action="{% url 'like_opinion' %}">
+                        ❤️ <span id="likes-count-{{ opinion.id }}" >{{ opinion.like_count }}</span>
                         </button>
                     </div>
                 </div>

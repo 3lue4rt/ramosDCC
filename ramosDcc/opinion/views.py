@@ -124,10 +124,19 @@ def profile(request):
 def like_opinion(request):
     if request.method == 'POST':
         opinion_id = request.POST.get('opinion_id')
+        curr_likes = int(request.POST.get('curr_likes'))
+        
         opinion = Opinion.objects.get(id=opinion_id)
-        opinion.likes += 1
-        opinion.save()
-        return JsonResponse({'likes': opinion.likes})
+        
+        if opinion.likes.filter(pk=request.user.pk).exists():
+            opinion.likes.remove(request.user)
+            curr_likes -= 1
+        
+        else:
+            opinion.likes.add(request.user)
+            curr_likes += 1
+        
+        return JsonResponse({'likes': curr_likes}, status=200)
     return JsonResponse({'error': 'Método no permitido'}, status=400)
 
 
