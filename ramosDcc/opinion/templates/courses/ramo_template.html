@@ -5,10 +5,7 @@
 {% block content %}
 
 <div id="ramo-box" class="container my-5">
-    <div class="row">
-
-        <!-- COLUMNA IZQUIERDA -->
-        <div id="ramo-info" class="column">
+        <div id="ramo-info" >
             <h1>{{ ramo.code }} - {{ ramo.name }}</h1>
             <a href="https://ucampus.uchile.cl/m/fcfm_catalogo/programa?bajar=1&id={{ ramo.program_id }}">
                 Programa del Curso
@@ -18,8 +15,7 @@
             <p class="rates">El tiempo dedicado es más del esperado para sus créditos: {{ ramo.rate_time }}/5</p>
         </div>
 
-        <!-- COLUMNA DERECHA -->
-        <div class="column">
+        <div >
             {% if user.is_authenticated %}
             <div class="comment-box mb-4">
                 <h2 class="mb-4">Deja tu opinión</h2>
@@ -125,7 +121,7 @@
             
 
         </div>
-    </div>
+    
 </div>
 
 {% endblock %}
