@@ -32,8 +32,10 @@
 
                 <button type="submit" name="login" class="w-100">Ingresar</button>
             </form>
-
-            <button type="button" class="btn-outline w-100 mt-3" id="guest-btn">Ingresar como Invitado</button>
+            <a href="{% url 'courses_list' %}">
+                <button type="button" class="btn-outline w-100 mt-3" id="guest-btn">Seguir como Invitado</button>     
+            </a>
+            
             <div class="text-center mt-3">
                 <small>¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate</a></small>
             </div>

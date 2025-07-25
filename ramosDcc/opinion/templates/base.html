@@ -42,7 +42,9 @@
                         {% if user.is_authenticated %}
                             <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
                         {% else %}
+                            {% if request.path != '/login' %}
                             <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+                            {% endif %}
                         {% endif %}
                     </li>
                 </ul>
