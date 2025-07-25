@@ -10,6 +10,7 @@ class User(AbstractUser):
   name = models.CharField(max_length=50)
   last_name = models.CharField(max_length=50)
   email = models.EmailField(unique=True)
+  description = models.CharField(max_length=500, default="")
 
   def __str__(self):
         return self.username
@@ -76,7 +77,7 @@ class Ramo(models.Model):
   @property
   def opinions(self):
     # opinion are displayed showind most liked first
-    return Opinion.objects.annotate(num_likes=models.Count('likes')).order_by('-num_likes')
+    return Opinion.objects.filter(ramo_code=self.code).annotate(num_likes=models.Count('likes')).order_by('-num_likes')
   
   def rate_dificulty(self):
     rate = 0

@@ -130,8 +130,28 @@ def addRamo(request):
         return redirect('courses_list')
     
 def profile(request):
-    if request.method == "GET":
-        return render(request, "auth/editar_perfil.html")
+    if request.method == "POST":
+        user = User.objects.filter(pk=request.user.pk)[0]
+        
+        username    = request.POST.get('username', user.username)
+        email       = request.POST.get('email', user.email)
+        name        = request.POST.get('name', user.name)
+        last_name    = request.POST.get('last_name', user.last_name)
+        description = request.POST.get('description', user.description)
+        
+        new_data    = {
+            'username' : username,
+            'name' : name,
+            'email' : email,
+            'last_name' : last_name,
+            'description' : description,
+        }
+        
+        User.objects.filter(pk=request.user.pk).update(**new_data)  
+        return redirect('profile')  
+        
+    return render(request, "auth/editar_perfil.html", {"user_opinions": request.user.opinions.all()})
+
 
 def like_opinion(request):
     if request.method == 'POST':
