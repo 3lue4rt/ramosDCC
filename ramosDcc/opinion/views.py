@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 
 semestres = ["V Semestre", "VI Semestre", "VII Semestre", "VIII Semestre"]
 ramos = Ramo.objects.all()
@@ -165,6 +166,20 @@ def like_opinion(request):
         
         return JsonResponse({'likes': curr_likes}, status=200)
     return JsonResponse({'error': 'Método no permitido'}, status=400)
+
+@login_required
+@require_http_methods(["DELETE"])
+def delete_opinion(request, opinion_id):
+    try:
+        opinion = Opinion.objects.get(pk=opinion_id)
+        # Verify the requesting user owns the opinion
+        if request.user == opinion.user:
+            opinion.delete()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'No autorizado'}, status=403)
+    except Opinion.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Opinión no encontrada'}, status=404)
 
 
 def is_superuser(user):

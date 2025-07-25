@@ -11,5 +11,6 @@ urlpatterns = [
     path('agregar-ramo', views.addRamo, name='addRamo'),
     path('profile',views.profile, name='profile'),
     path('like_opinion/', views.like_opinion, name='like_opinion'),
-    path('opinion-requests', views.opinion_requests, name='opinion-requests')
+    path('opinion-requests', views.opinion_requests, name='opinion-requests'),
+    path('opinion/<int:opinion_id>/delete/', views.delete_opinion, name='delete_opinion'),
 ]

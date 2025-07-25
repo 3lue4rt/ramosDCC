@@ -110,30 +110,39 @@
             <div class="comment-list">
                 <h2 class="mb-4">Opiniones del ramo</h2>
                 {% for opinion in ramo.opinions %}
-
-                {% if opinion.approved %}
-                <div class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center" id="{{ opinion.user.username }}">
-                    <div>
-                        <h4>{{ opinion.user }} </h4>
-                        <p>{{ opinion.opinion_text }}</p>
-                        <small>
-                            <strong>Dificultad:</strong> {{ opinion.rate_dificulty }}/5 |
-                            <strong>Tiempo:</strong> {{ opinion.rate_time }}/5
-                        </small>
-                        <br>
-                        <small class="opinion-date">{{ opinion.date }}</small>
+                    {% if opinion.approved %}
+                    <div class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center" id="{{ opinion.user.username }}">
+                        <div>
+                            <h4>{{ opinion.user }}</h4>
+                            <p>{{ opinion.opinion_text }}</p>
+                            <small>
+                                <strong>Dificultad:</strong> {{ opinion.rate_dificulty }}/5 |
+                                <strong>Tiempo:</strong> {{ opinion.rate_time }}/5
+                            </small>
+                            <br>
+                            <small class="opinion-date">{{ opinion.date }}</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <!-- Like Button -->
+                            <button class="btn btn-sm btn-outline-primary like-btn me-2"
+                                data-opinion-id="{{ opinion.id }}"
+                                data-likes="{{ opinion.like_count }}"
+                                data-action="{% url 'like_opinion' %}">
+                                ❤️ <span id="likes-count-{{ opinion.id }}">{{ opinion.like_count }}</span>
+                            </button>
+                            
+                            <!-- Delete Button (only shows for opinion owner) -->
+                            {% if request.user == opinion.user %}
+                            <button class="btn btn-sm btn-outline-danger delete-opinion-btn"
+                                data-opinion-id="{{ opinion.id }}"
+                                data-opinion-user="{{ opinion.user.username }}"
+                                data-delete-url="{% url 'delete_opinion' opinion.id %}">
+                                🗑️ Eliminar
+                            </button>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div>
-                        <button class="btn btn-sm btn-outline-primary like-btn"
-                            data-opinion-id="{{ opinion.id }}"
-                            data-likes="{{ opinion.like_count }}"
-                            data-action="{% url 'like_opinion' %}">
-                        ❤️ <span id="likes-count-{{ opinion.id }}" >{{ opinion.like_count }}</span>
-                        </button>
-                    </div>
-                </div>
-                {% endif %}
-                
+                    {% endif %}
                 {% endfor %}
             </div>
             
