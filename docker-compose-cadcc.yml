@@ -1,0 +1,22 @@
+# Agregar este servicio al compose.yml existente del servidor CaDCC
+
+# =============================================================
+# RamosDCC Django (Nueva aplicación)
+# =============================================================
+    ramosdcc:
+        build:
+            context: ./ramosdcc/
+            dockerfile: Dockerfile.caddy
+        container_name: ramosdcc
+        restart: always
+        depends_on:
+            - caddy
+        volumes:
+            - ./ramosdcc/data:/app/data
+            - ./ramosdcc/logs:/app/logs
+            - ./ramosdcc/media:/app/media
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - DJANGO_SETTINGS_MODULE=ramosDcc.settings_cadcc
+        networks:
+            - proxy
