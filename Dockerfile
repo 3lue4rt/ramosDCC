@@ -31,7 +31,7 @@ COPY start.sh /app/
 RUN chmod +x /app/start.sh
 
 # Crea directorios para datos persistentes
-RUN mkdir -p /app/data /app/logs /app/staticfiles
+RUN mkdir -p /app/data /app/logs /app/staticfiles /app/media
 
 # Crea un usuario no root para ejecutar la aplicación
 RUN adduser --disabled-password --gecos '' appuser && chown -R appuser /app
