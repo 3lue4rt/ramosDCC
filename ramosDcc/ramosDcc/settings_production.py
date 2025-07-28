@@ -4,7 +4,7 @@ from .settings import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['ramos.cadcc.cl', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['ramosdcc.cadcc.cl', 'localhost', '127.0.0.1']
 
 # Static files configuration with WhiteNoise
 MIDDLEWARE = [
