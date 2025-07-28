@@ -37,7 +37,7 @@ docker-compose -f docker-compose.local.yml down
 ```
 
 ### Verificar funcionamiento
-- Abre http://localhost:8500 en tu navegador
+- Abre http://localhost:80 en tu navegador
 - Verifica que se carguen los archivos estáticos (CSS/JS)
 - Prueba el login/registro si aplica
 - Revisa los logs en busca de errores

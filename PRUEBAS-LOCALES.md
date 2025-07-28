@@ -15,7 +15,7 @@ chmod +x test-local.sh
 ./test-local.sh
 ```
 
-Luego abre http://localhost:8500 en tu navegador.
+Luego abre http://localhost:80 en tu navegador.
 
 ## 📋 Archivos de Configuración Local
 
@@ -69,18 +69,18 @@ chmod +x test-local.sh
 chmod +x entrypoint-local.sh
 ```
 
-### Puerto 8500 ocupado
+### Puerto 80 ocupado
 ```bash
 # Ver qué proceso está usando el puerto
 # Windows:
-netstat -ano | findstr :8500
+netstat -ano | findstr :80
 
 # Linux/Mac:
-lsof -i :8500
+lsof -i :80
 
 # Cambiar el puerto en docker-compose.local.yml:
 ports:
-  - "8501:8500"  # Usar puerto 8501 localmente
+  - "8501:80"  # Usar puerto 8501 localmente
 ```
 
 ### Base de datos corrupta
@@ -98,7 +98,7 @@ docker-compose -f docker-compose.local.yml up -d
 |---------|-------|------------|
 | **DEBUG** | True | False |
 | **Servidor** | Gunicorn + --reload | Gunicorn |
-| **Puerto** | 8500 (expuesto) | 8500 (interno) |
+| **Puerto** | 80 (expuesto) | 80 (interno) |
 | **SSL** | No | Sí (Caddy + Let's Encrypt) |
 | **Dominio** | localhost | ramos.cadcc.cl |
 | **Logs** | Verbosos | Producción |
@@ -114,7 +114,7 @@ Antes de desplegar a producción, asegúrate de que:
 - [ ] Las migraciones se ejecutan sin problemas
 - [ ] El login/registro funciona (si aplica)
 - [ ] No hay errores en los logs
-- [ ] La aplicación responde en http://localhost:8500
+- [ ] La aplicación responde en http://localhost:80
 
 ## 📝 Notas
 

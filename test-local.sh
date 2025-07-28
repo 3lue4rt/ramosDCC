@@ -30,7 +30,7 @@ fi
 echo "✅ Contenedor iniciado correctamente"
 echo ""
 echo "📋 Información del servicio:"
-echo "   - URL: http://localhost:8500"
+echo "   - URL: http://localhost:80"
 echo "   - Contenedor: ramos-django-local"
 echo "   - Base de datos: ./data/db.sqlite3"
 echo ""
@@ -46,13 +46,13 @@ sleep 5
 
 # Verificar que la aplicación responda
 echo "🔍 Verificando que la aplicación responda..."
-curl -s -o /dev/null -w "%{http_code}" http://localhost:8500 > /tmp/http_status
+curl -s -o /dev/null -w "%{http_code}" http://localhost:80 > /tmp/http_status
 
 if [ -f /tmp/http_status ]; then
     status=$(cat /tmp/http_status)
     if [ "$status" = "200" ] || [ "$status" = "302" ] || [ "$status" = "301" ]; then
         echo "✅ ¡Aplicación funcionando correctamente!"
-        echo "🌐 Abre tu navegador en: http://localhost:8500"
+        echo "🌐 Abre tu navegador en: http://localhost:80"
     else
         echo "⚠️  La aplicación responde con código: $status"
         echo "📄 Revisa los logs con: docker-compose -f docker-compose.local.yml logs"

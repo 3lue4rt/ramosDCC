@@ -13,4 +13,4 @@ python manage.py collectstatic --noinput
 
 # Iniciar Gunicorn
 echo "Iniciando servidor Gunicorn..."
-exec gunicorn --bind 0.0.0.0:8500 --workers 3 ramosDcc.wsgi:application
+exec gunicorn --bind 0.0.0.0:80 --workers 3 ramosDcc.wsgi:application

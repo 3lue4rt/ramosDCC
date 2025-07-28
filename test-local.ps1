@@ -29,7 +29,7 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "Contenedor iniciado correctamente" -ForegroundColor Green
 Write-Host ""
 Write-Host "Informacion del servicio:" -ForegroundColor Cyan
-Write-Host "   - URL: http://localhost:8500" -ForegroundColor White
+Write-Host "   - URL: http://localhost:80" -ForegroundColor White
 Write-Host "   - Contenedor: ramos-django-local" -ForegroundColor White
 Write-Host "   - Base de datos: ./data/db.sqlite3" -ForegroundColor White
 Write-Host ""
@@ -47,12 +47,12 @@ Start-Sleep -Seconds 5
 Write-Host "Verificando que la aplicacion responda..." -ForegroundColor Yellow
 
 try {
-    $response = Invoke-WebRequest -Uri "http://localhost:8500" -UseBasicParsing -TimeoutSec 10
+    $response = Invoke-WebRequest -Uri "http://localhost:80" -UseBasicParsing -TimeoutSec 10
     $status = $response.StatusCode
     
     if ($status -eq 200 -or $status -eq 302 -or $status -eq 301) {
         Write-Host "Aplicacion funcionando correctamente!" -ForegroundColor Green
-        Write-Host "Abre tu navegador en: http://localhost:8500" -ForegroundColor Cyan
+        Write-Host "Abre tu navegador en: http://localhost:80" -ForegroundColor Cyan
     } else {
         Write-Host "La aplicacion responde con codigo: $status" -ForegroundColor Yellow
         Write-Host "Revisa los logs con: docker-compose -f docker-compose.local.yml logs" -ForegroundColor White

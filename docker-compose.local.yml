@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.local
     container_name: ramos-django-local
     ports:
-      - "8500:8500"  # Exponer puerto para pruebas locales
+      - "80:80"  # Exponer puerto para pruebas locales
     volumes:
       - ./data:/app/data  # Volumen para la base de datos
       - /etc/localtime:/etc/localtime:ro

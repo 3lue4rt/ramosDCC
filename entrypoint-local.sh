@@ -19,11 +19,11 @@ echo ""
 echo "✅ Aplicación configurada correctamente"
 echo "📋 Información del entorno:"
 echo "   - Configuración: $DJANGO_SETTINGS_MODULE"
-echo "   - Puerto: 8500"
+echo "   - Puerto: 80"
 echo "   - Base de datos: /app/data/db.sqlite3"
 echo "   - Servidor: Gunicorn (idéntico a producción)"
 echo ""
 
 # Iniciar Gunicorn (igual que en producción)
 echo "🚀 Iniciando servidor Gunicorn..."
-exec gunicorn --bind 0.0.0.0:8500 --workers 2 --reload ramosDcc.wsgi:application
+exec gunicorn --bind 0.0.0.0:80 --workers 2 --reload ramosDcc.wsgi:application

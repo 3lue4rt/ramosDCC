@@ -35,7 +35,7 @@ COPY entrypoint-local.sh /app/entrypoint-local.sh
 RUN chmod +x /app/entrypoint-local.sh
 
 # Exponer puerto
-EXPOSE 8500
+EXPOSE 80
 
 # Comando por defecto (usar entrypoint local)
 ENTRYPOINT ["/app/entrypoint-local.sh"]
