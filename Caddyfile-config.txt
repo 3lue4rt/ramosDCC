@@ -1,0 +1,9 @@
+# Configuración para agregar al Caddyfile del servidor
+# Esta línea debe agregarse al archivo ./caddy/Caddyfile
+
+ramos.cadcc.cl {
+    reverse_proxy ramos-django:8500
+    log {
+        output file /logs/ramos.cadcc.cl.log
+    }
+}
