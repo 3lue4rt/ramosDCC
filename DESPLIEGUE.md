@@ -53,10 +53,10 @@ docker-compose -f docker-compose.local.yml down
    - Agrega la configuración del archivo `Caddyfile-config.txt` al archivo `./caddy/Caddyfile` del servidor
    - La configuración debe verse así:
    ```
-   ramos.cadcc.cl {
-       reverse_proxy ramos-django:8000
+   ramosdcc.cadcc.cl {
+       reverse_proxy ramosdcc-django:8000
        log {
-           output file /logs/ramos.cadcc.cl.log
+           output file /logs/ramosdcc.cadcc.cl.log
        }
    }
    ```
