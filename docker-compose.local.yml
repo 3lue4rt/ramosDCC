@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  ramos-django:
+    build: 
+      context: .
+      dockerfile: Dockerfile.local
+    container_name: ramos-django-local
+    ports:
+      - "80:80"  # Exponer puerto para pruebas locales
+    volumes:
+      - ./data:/app/data  # Volumen para la base de datos
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - DJANGO_SECRET_KEY=clave-secreta-para-desarrollo-local-no-usar-en-produccion
+      - DJANGO_SETTINGS_MODULE=ramosDcc.settings_local
+    restart: unless-stopped
+
+networks:
+  default:
+    driver: bridge

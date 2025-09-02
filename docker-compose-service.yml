@@ -1,0 +1,21 @@
+# Configuración para agregar al docker-compose.yml del servidor
+# Agregar este servicio bajo la sección "services:"
+
+# =============================================================
+# RamosCC Django App
+# =============================================================
+
+    ramos-django:
+        build: ./ramos/
+        container_name: ramos-django
+        restart: always
+        depends_on:
+            - caddy
+        volumes:
+            - ./ramos/data:/app/data
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - DJANGO_SECRET_KEY=tu_clave_secreta_aqui_cambiar_en_produccion
+            - DJANGO_SETTINGS_MODULE=ramosDcc.settings_production
+        networks:
+            - proxy

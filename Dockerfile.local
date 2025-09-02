@@ -1,0 +1,41 @@
+# Dockerfile para desarrollo local
+FROM python:3.12-slim
+
+# Configurar variables de entorno
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV DJANGO_SETTINGS_MODULE=ramosDcc.settings_local
+
+# Establecer directorio de trabajo
+WORKDIR /app
+
+# Instalar dependencias del sistema (solo lo esencial)
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        gcc \
+        python3-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar requirements y instalar dependencias de Python
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar el código de la aplicación
+COPY ramosDcc/ /app/
+
+# Crear directorio para archivos estáticos
+RUN mkdir -p /app/staticfiles
+
+# Crear directorio para la base de datos y darle permisos
+RUN mkdir -p /app/data && chmod 755 /app/data
+
+# Crear un script de entrada para desarrollo local
+COPY entrypoint-local.sh /app/entrypoint-local.sh
+RUN chmod +x /app/entrypoint-local.sh
+
+# Exponer puerto
+EXPOSE 80
+
+# Comando por defecto (usar entrypoint local)
+ENTRYPOINT ["/app/entrypoint-local.sh"]
